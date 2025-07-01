@@ -6,7 +6,7 @@ Ever struggled to find the perfect haircut in Vancouver? Between navigating busy
 PlatStyle is your one-stop shop for connecting with talented hair stylists across the Vancouver metropolitan area. With our sleek and appUser-friendly app, finding your next haircut is a breeze. It's time to ditch the stress and embrace a world of convenient haircuts with PlatStyle!
 
 ### Project Demo
-https://platstyle.melodieeee.com/
+https://platstyle.onrender.com
 
 *Powered by Google Cloud's Managed Platform: PlatStyle is deployed on Google Cloud Platform's (GCP) App Engine.*
 
@@ -58,3 +58,9 @@ The following items should be installed in your system:
 | User | appUser@gmail.com   | appUser |
 
 
+### local test docker packing
+```bash
+docker build -t platstyle-app .
+docker run -p 8080:8080 platstyle-app
+
+```
