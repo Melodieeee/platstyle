@@ -1,0 +1,319 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Release | PlatStyles</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="../css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../css/style.css" />
+
+</head>
+
+<body onload="cartCount()">
+
+<style>
+
+    .carousel-inner .carousel-item {
+        max-height: 500px !important;
+        width: auto;
+    }
+
+    .carousel-inner > carousel-item > container > img {
+        position: absolute;
+        top: 80%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        max-height: 500px !important;
+        width: auto;
+        object-fit: cover;
+    }
+
+</style>
+<main>
+
+    <div th:replace="fragments/header :: header"/>
+    <!--Content Start-->
+    <div class="container w-100">
+        <!--Left & Right content box-->
+        <div class="row">
+            <!--Left-->
+            <div class="container col-xl-4 col-md-5 col-sm-12">
+                <div class="text-center w-100">
+                    <div class="text-center mt-5 mb-5 py-3" >
+                        <div class="circle-image">
+                            <img class="img-circle m-t-xs img-responsive" th:src="${stylist.getPhoto()}" width="200">
+                        </div>
+                        <h2 class="name fw-500 mt-2 mb-2" th:text="*{stylist.name}"></h2>
+                        <p class="text-black-50" ></p>
+                        <button type="button" class="btn btn-outline-success" onclick="setTimeslots()" data-bs-toggle="modal" data-bs-target="#exampleModal" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">
+                            Opening Hours
+                        </button>
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Available time</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="container">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">From</th>
+                                                    <th scope="col">To</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="t:${timeslot}">
+                                                    <td th:text="${t.getWeek()}"></td>
+                                                    <td th:text="${t.getStartTime()}"></td>
+                                                    <td th:text="${t.getEndTime()}"></td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location mt-2 mb-2">
+                            <span><i class="fa fa-map-marker stop mt-2 text-danger"></i> <small class="text-truncate text-danger ml-2" th:text="*{stylist.city}"></small> </span>
+                        </div>
+                        <!--Rating-->
+                        <form>
+                            <input id="input-21b" th:value="${stylist.getRate()}" type="text" class="rating mb-3" disabled="disabled" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm" style="--clear-rating: hidden;">
+                            <div class="clearfix"></div>
+                        </form>
+                        <!--Comments-->
+                        <div class="container mt-5">
+                            <div class="d-flex justify-content-center align-items-center">
+                                <div class="card w-75">
+                                    <div class="comment-title m-1 border-bottom">
+                                        <h5>Recent Comments</h5>
+                                    </div>
+                                    <div class="comment-card">
+                                        <div class="container d-flex flex-row p-1 text-start border-bottom" th:each="f:${feedbacks}">
+                                            <img src="../img/avatar7.png" width="30" height="30" class="rounded-circle mr-3">
+                                            <div class="w-50">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="d-flex flex-row align-items-center">
+                                                        <span class="mx-3" th:text="${f.getOrder.getAppUser.getFirstName + ' ' + f.getOrder.getAppUser.getLastName }">Brian selter</span>
+                                                    </div>
+                                                    <small th:text="'@ ' + ${f.getCreateDate}">time</small>
+                                                </div>
+                                                <p class="text-justify comment-text mt-3 mb-0 mx-3 text-black-50" th:text="${f.getComment()}">comment</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!--Right-->
+            <div class="container col-xl-8 col-md-7 col-sm-12">
+                <div class="container coverflow">
+                    <!--Carousel-->
+                    <div class="row">
+                        <div id="carousel" class="carousel slide" data-bs-ride="carousel" width="200" height="400">
+                            <div class="carousel-inner" id="portfolios">
+                                <div class="carousel-item active">
+                                    <div class="container text-center">
+                                        <img src="../img/default-portfolio.png" class="d-block w-100" alt="" width="300" height="600">
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </button>
+                            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </button>
+                        </div>
+                        <div class="col-2"></div>
+                    </div>
+                </div>
+                <!--Form-->
+                <div class="row gutters">
+                    <form th:action="@{/user/addService}"  method="post">
+                        <div class="row gutters">
+                            <div class="col-3 mt-4 mb-2 mx-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="male" name="gender" value="M" onclick="getServicesByGender()" autocomplete="off">
+                                    <label class="form-check-label" for="male">
+                                        Male
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="female" name="gender" value="F" onclick="getServicesByGender()" autocomplete="off">
+                                    <label class="form-check-label" for="female">
+                                        Female
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-3 mt-4 mb-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="other" name="gender" value="O" onclick="getServicesByGender()" autocomplete="off">
+                                    <label class="form-check-label" for="other">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-7 m-2">
+                                <label class="form-check-label">Service:</label>
+                                <div class="input-group mb-3">
+                                    <select th:onchange="getPrice()" class="form-select" aria-label="Default select example" name="serviceSelect" id="serviceSelect" required>
+                                        <option value="0" selected>Choose...</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-7 m-2">
+                                <label class="form-check-label">Hair Part:</label>
+                                <div class="btn-group w-100" role="group" aria-label="Basic radio toggle button group">
+                                    <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio1" value="short" autocomplete="off" onclick="setPrice(minPrice)">
+                                    <label class="btn btn-outline-secondary" for="btnradio1">Short</label>
+
+                                    <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio2" value="medium" autocomplete="off" onclick="setPrice(midPrice)">
+                                    <label class="btn btn-outline-secondary" for="btnradio2">Medium</label>
+
+                                    <input type="radio" class="btn-check" th:field="*{orderService.lengthOfHair}" id="btnradio3" value="long" autocomplete="off" onclick="setPrice(maxPrice)">
+                                    <label class="btn btn-outline-secondary" for="btnradio3">Long</label>
+                                </div>
+                            </div>
+
+                            <div class="col-7 m-2">
+                                <label class="form-check-label">Estimate Price:</label>
+                                <div class="h2 mx-auto" style="width: 200px;" id="price">$20</div>
+                            </div>
+                            <div class="col-10 m-2">
+                                <div class="d-grid gap-3 col-md-8">
+                                    <button class="btn btn-outline-secondary add-button" type="submit" onclick="cartCount()">Add Service</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="../js/star-rating.js" type="text/javascript"></script>
+<script src="../js/theme.min.js" type="text/javascript"></script>
+<script src="../js/silder.js"></script>
+<script src="../js/sidebars.js"></script>
+<script th:inline="javascript">
+
+    //easy-sidebar-toggle-right
+    var minPrice = 0;
+    var midPrice = 0;
+    var maxPrice = 0;
+    var hairPart;
+
+
+    $('.easy-sidebar-toggle').click(function(e) {
+        e.preventDefault();
+        //$('body').toggleClass('toggled-right');
+        $('body').toggleClass('toggled');
+        //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+
+    function getServicesByGender() {
+        let gender=$('input[name="gender"]:checked').val();
+        $("#serviceSelect").empty();
+        $.ajax({
+            url:"../api/ajax/getServicesBySidAndGender/"+[[${stylist.getSid}]]+"/"+gender,
+            type: "GET",
+            dataType: "html",
+            success: function(html) {
+                $("#serviceSelect").append(html)
+                getPrice();
+            }
+        })
+    }
+
+    function getPrice() {
+        const el = document.getElementById('serviceName');
+        let id=$( "#serviceSelect option:selected" ).val();
+
+        $.ajax({
+            url:"../api/ajax/getServiceFee/"+id,
+            type: "GET",
+            dataType: "json",
+            success: function(json) {
+                minPrice = json.minPrice;
+                maxPrice = json.maxPrice;
+                midPrice = (maxPrice + minPrice) / 2;
+                photos = json.photos;
+                hairPart = document.getElementsByName("lengthOfHair");
+                for (var i = 0; i < hairPart.length; i++) {
+                    if (hairPart[i].checked){
+                        setPrice(i);
+                    } else {
+                        $('#price').text("$"+minPrice + " - "+ "$"+maxPrice);
+                    }
+                }
+
+                $('#portfolios').empty();
+                if(photos.length == 0)  $('#portfolios').append("<div class=\"carousel-item active\">\n" +
+                    "                                <div class=\"container text-center\">\n"+
+                    "                                   <img src=\"../img/default-portfolio.png\" id=\"img-photo\" class=\"d-block w-100\" alt=\"\" width=\"300\" height=\"600\">\n" +
+                    "                                 </div>\n"+
+                    "                                   </div>");
+                for(var i = 0; i < photos.length; i++) {
+                    if(i==0) var items = '<div class="carousel-item active"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt="" width="300" height="600" ></div></div>';
+                    else var items = '<div class="carousel-item"><div class="container"><img src="'+photos[i]+'" class="d-block w-100" alt="" width="300" height="600"></div></div>';
+                    $('#portfolios').append(items);
+
+                }
+            }
+        })
+    }
+
+    function setPrice(){
+
+        if(hairPart[0].checked){
+            $('#price').text("$"+minPrice);
+        } else if (hairPart[1].checked){
+            $('#price').text("$"+midPrice);
+        } else if (hairPart[2].checked){
+            $('#price').text("$"+maxPrice);
+        }
+    }
+
+    function cartCount() {
+        var count = [[${count}]];
+        localStorage.setItem("count", count);
+        if(count==0) $('#badge').text(localStorage.removeItem("count"))
+        if(count != 0) $('#badge').text(localStorage.getItem("count"));
+        var cleanBtn = document.getElementsByClassName('clear-rating');
+        cleanBtn[0].hidden=true;
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+# Java/Maven
+target/
+*.class
+*.jar
+*.war
+*.ear
+# keep Maven wrapper jar
+!.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+
+# Eclipse/STS
+.classpath
+.project
+.settings/
+.springBeans
+.apt_generated
+.factorypath
+.sts4-cache
+
+# VS Code
+.vscode/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# Environment Variables
+src/main/resources/.env
+.env.local
+
+# Build output
+build/
+out/
+
+# macOS
+.DS_Store

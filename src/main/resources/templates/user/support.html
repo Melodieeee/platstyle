@@ -1,0 +1,83 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Support | PlatStyles</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+
+<body>
+<main>
+
+    <div th:replace="fragments/header :: header"/>
+    <!--Content Start-->
+    <div class="container">
+        <h1 class="mb-4">Support</h1>
+
+        <div class="row justify-content-md-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-body">
+                        <form th:object="${support}" th:action="@{/user/addSupport}" method="post">
+<!--                            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>-->
+                            <!-- Subject input -->
+                            <div class="form-outline mb-4">
+                                <input type="text" id="subject" placeholder="Subject" th:field="*{subject}" class="form-control" />
+                            </div>
+                            <!-- Order ID dropdown -->
+                            <div class="form-outline mb-4">
+                                <select class="form-control" id="order" name="oid" required>
+                                    <option value="">Select your order</option>
+                                    <option th:each="order : ${orders}"
+                                            th:value="${order.oid}"
+                                            th:text="${order.orderNum}">
+                                    </option>
+                                </select>
+                            </div>
+                            <!-- Category input -->
+                            <div class="form-outline mb-4">
+                                <input class="form-control" list="datalistOptions" id="category" th:field="*{category}" placeholder="Type to search category">
+                                <datalist id="datalistOptions">
+                                    <option value="Payment">
+                                    <option value="Two">
+                                    <option value="Three">
+                                    <option value="Four">
+                                </datalist>
+                            </div>
+                            <!-- Message input -->
+                            <div class="form-outline mb-4">
+                                <textarea class="form-control" id="message" name="message" placeholder="Message" rows="4" required></textarea>
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary btn-block mb-4">Send</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="js/sidebars.js" th:href="@{/js/sidebars.js}"></script>
+<script>
+    //easy-sidebar-toggle-right
+    $('.easy-sidebar-toggle').click(function(e) {
+        e.preventDefault();
+        //$('body').toggleClass('toggled-right');
+        $('body').toggleClass('toggled');
+        //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+</script>
+</body>
+</html>

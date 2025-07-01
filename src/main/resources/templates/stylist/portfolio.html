@@ -1,0 +1,219 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Stylist-Profile | PlatStyles</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+
+<body>
+<main>
+
+    <div th:replace="fragments/header :: header"/>
+    <!--Content Start-->
+    <div class="container">
+        <div class="box">
+            <div class="row mx-0 mt-2">
+                <div class="col-md-6">
+                    <label>Gender<br></label>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row ms-1">
+                                <div class="form-check col-md-4">
+                                    <input class="form-check-input" type="radio" id="male" value="M" onclick="getServicesByGender()" name="gender">
+                                    <label class="form-check-label" for="male">
+                                        Male
+                                    </label>
+                                </div>
+                                <div class="form-check col-md-4">
+                                    <input class="form-check-input" type="radio" id="female" value="F" onclick="getServicesByGender()" name="gender">
+                                    <label class="form-check-label" for="female">
+                                        Female
+                                    </label>
+                                </div>
+                                <div class="form-check col-md-4">
+                                    <input class="form-check-input" type="radio" id="other" value="O" onclick="getServicesByGender()" name="gender">
+                                    <label class="form-check-label" for="other">
+                                        Other
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h5> Add New Service</h5><hr>
+                <form class="mb-2">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>New Service<br></label>
+                                <input type="text" class="form-control" th:field="*{newService.serviceName}" placeholder="Your Service Name" required>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Basic Price</label>
+                                <input type="text" class="form-control" th:field="*{newService.minPrice}" placeholder="$20.00" required>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Max Price</label>
+                                <input text="number" class="form-control" th:field="*{newService.maxPrice}" placeholder="$20.00">
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex">
+                            <button type="button" class="btn btn-primary align-self-end" onclick="addService()" style="margin-top: 5px;">Add</button>
+                        </div>
+                    </div>
+                </form>
+                <h5> Set Service Price</h5><hr>
+                <form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Select Service<br></label>
+                                <select  th:onchange="getPrice()" class="form-control" id="editServiceName">
+                                    <option>Please select gender first</option>>
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Basic Price</label>
+                                <input type="text" class="form-control" id="editMinPrice" placeholder="basic price">
+                            </div>
+
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label>Max Price</label>
+                                <input text="number" class="form-control" id="editMaxPrice" placeholder="max price">
+                            </div>
+                        </div>
+                        <div class="col-md-2 d-flex">
+                            <button type="button" class="btn btn-primary align-self-end" onclick="setService()" style="margin-top: 5px;">Set</button>
+                        </div>
+                    </div>
+                </form>
+
+                <div class="col-md-3">
+                    <form method="post" th:action="@{/stylist/portfolio}" id="photoForm" enctype="multipart/form-data">
+                        <input type="number" id="selectedService" name="selectedService" value="0" hidden>
+                        <div class="file-upload-wrapper">
+                            <label>Photos<br></label><br>
+                            <input type="file" id="photoFile" class="file-upload" name="photoFile" multiple>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="margin-top: 5px;">Upload<br></button>
+                        <h6>You can upload multiple photos for one service, but you need to upload it separately, one at a time.</h6>
+                    </form>
+                </div>
+                <div class="col-md-6 mt-3">
+                    <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
+<script>
+    //easy-sidebar-toggle-right
+    $('.easy-sidebar-toggle').click(function (e) {
+        e.preventDefault();
+        //$('body').toggleClass('toggled-right');
+        $('body').toggleClass('toggled');
+        //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+    function getPrice() {
+        //const el = document.getElementById('serviceName');
+        let id=$( "#editServiceName option:selected" ).val();
+        $("#selectedService").val(id);
+        $.ajax({
+            url:"../api/ajax/getServiceFee/"+id,
+            type: "GET",
+            dataType: "json",
+            success: function(json) {
+                $("#editMinPrice").val(json.minPrice);
+                $("#editMaxPrice").val(json.maxPrice);
+            }
+        })
+    }
+
+    function getServicesByGender() {
+        let gender=$('input[name="gender"]:checked').val();
+        $("#editServiceName").empty();
+        $.ajax({
+            url:"../api/ajax/getServicesByGender/"+gender,
+            type: "GET",
+            dataType: "html",
+            success: function(html) {
+                $("#editServiceName").append(html)
+                getPrice();
+            }
+        })
+    }
+
+    function addService() {
+        let gender=$('input[name="gender"]:checked').val();
+        if(gender == null) alert("Please select gender first.");
+        else {
+            $.ajax({
+                url:"../api/ajax/addService",
+                type: "POST",
+                data: {
+                    "gender": gender,
+                    "serviceName": $('#serviceName').val(),
+                    "minPrice": $('#minPrice').val(),
+                    "maxPrice": $('#maxPrice').val()
+                },
+                dataType: "text",
+                success: function(msg) {
+                    alert(msg);
+                    $('#serviceName').val("");
+                    $('#minPrice').val("");
+                    $('#maxPrice').val("");
+                    getServicesByGender();
+                }
+            })
+
+        }
+    }
+
+    function setService() {
+        let serviceID=$( "#editServiceName option:selected" ).val();
+        if(serviceID=="") alert("please select service");
+        else {
+            $.ajax({
+                url:"../api/ajax/setService",
+                type: "POST",
+                data: {
+                    "serviceID": serviceID,
+                    "minPrice": $('#editMinPrice').val(),
+                    "maxPrice": $('#editMaxPrice').val()
+                },
+                dataType: "text",
+                success: function(msg) {
+                    alert(msg);
+                }
+            })
+
+        }
+    }
+
+
+</script>
+</body>
+</html>

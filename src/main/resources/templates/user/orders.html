@@ -1,0 +1,85 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orders | PlatStyles</title>
+
+    <div th:replace="fragments/header :: header-css"></div>
+</head>
+
+<body>
+<main>
+
+    <div th:replace="fragments/header :: header"></div>
+    <!--Content Start-->
+    <div class="container">
+        <div class="h2">
+            Orders
+        </div>
+
+        <!-- 如果 orderList 是空的 -->
+        <div th:if="${#lists.isEmpty(orderList)}" class="alert alert-info mt-3">
+            You have no orders.
+        </div>
+
+        <!-- 有訂單才顯示表格 -->
+        <div th:unless="${#lists.isEmpty(orderList)}" class="box">
+            <div class="container mt-5">
+                <table class="table table-borderless main">
+                    <thead>
+                    <tr style="color: gray;">
+
+                        <th scope="col">OrderID</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Stylist</th>
+                        <th scope="col">Service</th>
+                        <th scope="col">Total</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order : ${orderList}" class="rounded bg-white">
+                        <td>
+                            <a th:href="'/user/orderDetail?order=' + ${order.getOid()}" th:text="${order.getOrderNum()}"></a>
+                        </td>
+                        <td th:text="${order.getDate}"></td>
+                        <td class="d-flex align-items-center">
+                            <img src="https://cdn-icons-png.flaticon.com/512/168/168732.png" class="rounded-circle" width="25" />
+                            <span style="padding-left: 3px;" class="ml-2" th:text="${order.getStylistName()}"></span>
+                        </td>
+                        <td th:text="${order.getServiceName()}"></td>
+                        <td th:text="${order.getTotalPrice()}"></td>
+                        <td th:text="${order.getCustomerStatus()}"></td>
+                        <td>
+                            <a th:if="${order.getStatus() < 5}" onClick="return confirm('Are you sure you want to cancel this order?')" th:href="@{./cancelOrder(id=${order.getOid()})}" class="btn btn-sm btn-danger" >
+                                Cancel
+                            </a>
+                            <a th:if="${order.getStatus() == 7}" th:href="'/user/orderDetail?order=' + ${order.getOid()}" class="btn btn-sm btn-primary" >
+                                FeedBack
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
+<script>
+    //easy-sidebar-toggle-right
+    $('.easy-sidebar-toggle').click(function(e) {
+        e.preventDefault();
+        $('body').toggleClass('toggled');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Customer Account | PlatStyles</title>
+    <div th:fragment="header-css">
+        <!-- this is header-css -->
+        <!--Bootstrap-->
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+        <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sidebars/">
+        <!--Webside ICON-->
+        <link rel="icon" href="../img/icon-p.png" th:href="@{../img/icon-p.png}" type="image/p-icon"/>
+
+        <!-- Custom styles for this template -->
+        <!--link rel="stylesheet" href="../css/easy-sidebar.css" th:href="@{../css/easy-sidebar.css}"-->
+    </div>
+</head>
+
+<body>
+
+<main th:fragment="header">
+    <div class="p-3 bg-white text-white" >
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-between py-3 mb-4 border-bottom">
+                <div class="navbar navbar-inverse" role="navigation">
+                    <div class="container">
+                        <div class="nav fixed-button">
+                            <div class="navbar-header">
+                                <!--easy-sidebar-toggle-->
+                                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <a class="navbar-brand m-3" href="/user/shop">
+                                    <img src="../img/logo-h-dk.png" alt="">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Search bar-->
+                <div class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 bg-light">
+                    <form ethod="post" th:action="@{/user/shop}" role="search">
+                        <input id="search-input" type="search" name="keyword" class="form-control" placeholder="Search..." aria-label="Search" >
+                    </form>
+                </div>
+                <!--Order ICON-->
+                <div class="text-end">
+                    <a href="/user/cart" role="button">
+                        <button type="button" class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                                <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zM9 5.5V7h1.5a.5.5 0 0 1 0 1H9v1.5a.5.5 0 0 1-1 0V8H6.5a.5.5 0 0 1 0-1H8V5.5a.5.5 0 0 1 1 0z"/>                  </svg>
+                            Your order <span class="badge text-bg-danger" id="badge"></span>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var amount = document.getElementById("badge");
+        var count = localStorage.getItem("count");
+        if(count != 0 ) amount.innerText = count;
+        if(count==0) amount.innerText = "0";
+    </script>
+
+    <!--Sidebar -->
+    <nav class="navbar fixed-top">
+        <div class="container-fluid">
+            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title" id="offcanvasNavbarLabel">PlatStyle</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="nav nav-pills flex-column mb-auto">
+                        <li class="nav-item">
+                            <a href="/user/shop" th:classappend="${#httpServletRequest.getRequestURI() == '/user/shop' ? 'active':''}" class="nav-link link-dark" aria-current="page">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/user/shop"/></svg>
+                                Shop
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user/orders" th:classappend="${#httpServletRequest.getRequestURI() == '/user/orders' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+                                Orders
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user/account" th:classappend="${#httpServletRequest.getRequestURI() == '/user/account' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/user/account"/></svg>
+                                Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/user/supportHistory" th:classappend="${#httpServletRequest.getRequestURI() == '/user/supportHistory' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/user/supportHistory"/></svg>
+                                Support History
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/profile" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/profile' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/profile"/></svg>
+                                Profile
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/portfolio" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/portfolio' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/portfolio"/></svg>
+                                Portfolio
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/appointments" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/appointments' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/appointments"/></svg>
+                                Appointments History
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/ongoingAppointments" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/ongoingAppointments' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/ongoingAppointments"/></svg>
+                                Ongoing Appointments
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('STYLIST')">
+                            <a href="/stylist/paymentRelease" th:classappend="${#httpServletRequest.getRequestURI() == '/stylist/paymentRelease' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/stylist/paymentRelease"/></svg>
+                                Payment Release
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('ADMIN')">
+                            <a href="/admin/supportManagement" th:classappend="${#httpServletRequest.getRequestURI() == '/admin/supportManagement' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/admin/supportManagement"/></svg>
+                                Support Management
+                            </a>
+                        </li>
+                        <li sec:authorize="hasRole('ADMIN')">
+                            <a href="/admin/userManagement" th:classappend="${#httpServletRequest.getRequestURI() == '/admin/userManagement' ? 'active':''}" class="nav-link link-dark">
+                                <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="/admin/userManagement"/></svg>
+                                User Management
+                            </a>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                            <strong th:text="${#authentication.getPrincipal().getFirstName()}"></strong>
+                        </a>
+                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                            <li><a class="dropdown-item" href="/user/support">Support</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="../js/sidebars.js" th:href="@{/js/sidebars.js}" ></script>
+<script src="../js/bootstrap.min.js" th:href="@{/js/bootstrap.min.js}" ></script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+/* .bottompart {
+    color: #000;
+    overflow-x: hidden;
+    height: 100%;
+    background-color: #44adf2;
+    background-repeat: no-repeat;
+} */
+
+/*Outter Card*/
+.card0 {
+    background-color: #F5F5F5;
+    border-radius: 8px;
+    z-index: 0;
+}
+
+/*Inner Card*/
+.card00 {
+    z-index: 0;
+}
+
+/*Left side card with progressbar*/
+.card1 {
+    margin-left: 140px;
+    z-index: 0;
+    border-right: 1px solid #F5F5F5;
+}
+
+/*right side cards*/
+.card2 {
+    display: none;
+}
+
+.card2.show {
+    display: block;
+}
+
+input, select {
+    padding: 2px;
+    border-radius: 0px;
+    box-sizing: border-box;
+    color: #9E9E9E;
+    border: 1px solid #BDBDBD;
+    font-size: 16px;
+    letter-spacing: 1px;
+    height: 50px !important;
+}
+
+select {
+    width: 100%;
+    margin-bottom: 85px;
+}
+
+input:focus, select:focus {
+    -moz-box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    border: 1px solid #44adf2 !important;
+    outline-width: 0 !important;
+}
+
+/*Blue colored checkbox*/
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+    background-color: #44adf2;
+}
+
+.form-group {
+    position: relative;
+    margin-bottom: 1.5rem;
+    width: 77%;
+}
+
+.form-control-placeholder {
+    position: absolute;
+    top: 0px;
+    padding: 12px 2px 0 2px;
+    transition: all 300ms;
+    opacity: 0.5;
+}
+
+.form-control:focus + .form-control-placeholder,
+.form-control:valid + .form-control-placeholder {
+    font-size: 95%;
+    top: 10px;
+    transform: translate3d(0, -100%, 0);
+    opacity: 1;
+    background-color: #fff;
+}
+
+.next-button {
+    
+    background-color: #44adf2;
+    color: #fff;
+    
+    cursor: pointer;
+}
+
+.next-button:hover {
+    background-color: #2a9eeb;
+    color: #fff;
+}
+
+.get-bonus {
+    margin-left: 154px;
+}
+
+/*Icon progressbar*/
+#progressbar {
+    position: absolute;
+    left: 25px;
+    overflow: hidden;
+    color: #44adf2;
+} 
+
+#progressbar li {
+    list-style-type: none;
+    font-size: 8px;
+    font-weight: 400;
+    margin-bottom: 36px;
+}
+
+/* #progressbar li:nth-child(3) {
+    margin-bottom: 88px;
+} */
+
+#progressbar .step0:before {
+    content: "";
+    color: #fff;
+}
+
+#progressbar li:before {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    font-size: 20px;
+    background: #fff;
+    border: 2px solid #44adf2;
+    border-radius: 50%;
+    margin: auto;
+}
+
+#progressbar li:last-child:before {
+    width: 40px;
+    height: 40px;
+}
+
+/*ProgressBar connectors---gray bar*/
+#progressbar li:after {
+    content: '';
+    width: 3px;
+    height: 400px;
+    background: #BDBDBD;
+    position: absolute;
+    left: 51px;
+    top: 15px;
+    z-index: -1;
+}
+
+#progressbar li:last-child:after {
+    top: 147px;
+    height: 132px;
+}
+
+#progressbar li:nth-child(3):after {
+    top: 81px;
+}
+
+#progressbar li:nth-child(2):after {
+    top: 0px;
+}
+
+#progressbar li:first-child:after {
+    position: absolute;
+    top: -81px;
+}
+
+/*Color of the connector before*/
+#progressbar li.active:after {
+    background: #44adf2;
+}
+
+/*Color of the step before*/
+#progressbar li.active:before {
+    background: #44adf2;
+    font-family: FontAwesome;
+    content: "\f00c";
+}
+
+
+@media screen and (max-width: 912px) {
+    .card00 {
+        padding-top: 30px;
+    }
+
+    .card1 {
+        border: none;
+        margin-left: 50px;
+    }
+
+    .card2 {
+        border-bottom: 1px solid #F5F5F5;
+        margin-bottom: 25px;
+    }
+
+    .social {
+        height: 30px;
+        width: 30px;
+        font-size: 15px;
+        padding-top: 8px;
+        margin-top: 7px;
+    }
+
+    .get-bonus {
+        margin-top: 40px !important;
+        margin-left: 75px;
+    }
+
+    #progressbar {
+        left: -25px;
+    }
+}
+
+/* reviews and rating */
+
+.circle-img {
+    border-radius: 50%;
+    text-align: center;
+}
+
+.circle-img > img {
+    width: 60%;
+    border-radius: 50%;
+    border: 20px solid #fff;
+    z-index: 1;
+ 
+}
+
+.rating-on-img {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  color: #fff;
+}
+
+.head-rate {
+    font-size: 70px;
+    margin-bottom: 0px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.subhead-rate {
+    font-size: 20px;
+    font-weight: normal;
+    cursor: pointer;
+    text-align: center;
+}

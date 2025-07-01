@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login | PlatStyles</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link href="css/signin.css" th:href="@{/css/signin.css}" access="permitAll" rel="stylesheet">
+    <link rel="icon" href="img/icon-p.png" th:href="@{/img/icon-p.png}" access="permitAll" type="image/p-icon"/>
+<body class="text-center">
+
+<main class="form-signin w-100 m-auto">
+    <form th:action="@{/authentication}" method="post">
+        <!-- <img class="mb-4" src="/img/icon-p.png" alt="" width="57" height="57"> -->
+        <h1 class="h3 mb-4 pb-4 fw-normal border-bottom">Login</h1>
+        <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+        <p th:if="${param.error != null}" class="alert alert-danger">Email address or password wrong, please try again</p>
+        <div class="form-floating">
+            <input type="email" class="form-control" name="username" id="username" placeholder="name@example.com">
+            <label for="username">Your email address</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+            <label for="password">Enter a password</label>
+        </div>
+        <div class="mb-3 d-flex">
+            <a href="forgotpassword">Forgot your password?</a>
+            <div class="p">&nbsp;or&nbsp;</div>
+            <a href="signup"> Register Now</a>
+        </div>
+
+        <button class="w-100 btn btn-lg btn-secondary" type="submit">Login</button>
+        <div class="mt-2 mx-auto">
+            <a href="/">Back to homepage</a>
+        </div>
+        <p class="mt-5 mb-3 text-muted">&copy; PlayStyle 2022</p>
+    </form>
+</main>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+</body>
+</html>

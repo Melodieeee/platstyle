@@ -1,0 +1,67 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Payment Release | PlatStyles</title>
+
+    <div th:replace="fragments/header :: header-css"/>
+</head>
+
+<body>
+<main>
+
+    <div th:replace="fragments/header :: header"/>
+    <!--Content Start-->
+    <form method="post" th:action="@{/user/upload}" enctype="multipart/form-data">
+        <div class="container text-center w-75">
+            <div class="h2">Request to be a stylist</div>
+            <p th:text="${message}" th:if="${message ne null}" class="alert alert-primary"></p>
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col">
+                        <div class="h5">Identity Document</div>
+                        <div class="mb-3">
+                            <label for="idFile" class="form-label">Accept identification with photo and must be clear.</label>
+                            <input class="form-control" type="file" name="idFile" id="idFile" multiple>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="h5">Work Permit</div>
+                        <div class="mb-3">
+                            <label for="workPermitFile" class="form-label">Upload your work permit</label>
+                            <input class="form-control" type="file" name="workPermitFile" id="workPermitFile" multiple>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Compelete btn-->
+        <div class="container">
+            <div class="row gutters">
+                <div class="d-grid gap-2 col-md-6 mx-auto pt-4">
+                    <button type="submit" class="btn btn-outline-success">Request</button>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!--Content End-->
+    <!--Footer-->
+    <div th:replace="fragments/footer :: footer"/>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script src="../js/sidebars.js" th:href="@{../js/sidebars.js}"></script>
+<script>
+    //easy-sidebar-toggle-right
+    $('.easy-sidebar-toggle').click(function(e) {
+        e.preventDefault();
+        //$('body').toggleClass('toggled-right');
+        $('body').toggleClass('toggled');
+        //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+</script>
+</body>
+</html>

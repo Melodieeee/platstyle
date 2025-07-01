@@ -1,0 +1,271 @@
+<!doctype html>
+<html class="easy-sidebar-active" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PlatStyles</title>
+    <!--Bootstrap-->
+    <div th:replace="fragments/header :: header-css"/>
+    <!--Webside ICON-->
+    <link rel="icon" href="../mg/icon-p.png" type="image/p-icon" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <!--Rating-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    <link href="../css/star-rating.css" media="all" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="../css/shop.css">
+</head>
+
+<body>
+<div th:replace="fragments/header :: header"/>
+    <!--CONTENT START-->
+    <div class="container mt-5 mb-5">
+        <div class="row g-5">
+            <!--Filter-->
+            <form class="col-xl-2 col-md-3 col-sm-12" id="filter">
+                <div class="h2 mb-4">All Stylists</div>
+                <div class="t-products p-2">
+                    <h5 class="text-uppercase">By Region</h5>
+                    <div class="p-lists">
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="vancouver" name="city" id="vancouver">
+                                <label class="form-check-label" for="Vancouver">Vancouver</label>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="burnaby" name="city" id="burnaby">
+                                <label class="form-check-label" for="Burnaby">Burnaby</label>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="richmond" name="city" id="richmond">
+                                <label class="form-check-label" for="richmond">Richmond</label>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="coquitlam" name="city" id="coquitlam">
+                                <label class="form-check-label" for="coquitlam">Coquitlam</label>
+                            </div>
+                            <span></span>
+                        </div>
+                        <div class="d-flex justify-content-between mt-2">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="others" name="city" id="others">
+                                <label class="form-check-label" for="others">Others</label>
+                            </div>
+                            <span></span>
+                        </div>
+
+                        <!--div class="d-flex justify-content-between mt-2"> <span>Vancouver</span> <span>23</span> </div>
+                        <div class="d-flex justify-content-between mt-2"> <span>Burnaby</span> <span>46</span> </div>
+                        <div class="d-flex justify-content-between mt-2"> <span>Richmond</span> <span>13</span> </div>
+                        <div class="d-flex justify-content-between mt-2"> <span>Coquitlam</span> <span>33</span> </div>
+                        <div class="d-flex justify-content-between mt-2"> <span>Others</span> <span>12</span> </div-->
+                    </div>
+                </div>
+                <div class="gender p-2">
+                    <div class="heading d-flex justify-content-between align-items-center">
+                        <h5 class="text-uppercase">by Gender</h5>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="M" name="gender" id="male">
+                            <label class="form-check-label" for="male">Male</label>
+                        </div>
+                        <span></span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="F" name="gender" id="female">
+                            <label class="form-check-label" for="female">Female</label>
+                        </div>
+                        <span></span>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="O" name="gender" id="other">
+                            <label class="form-check-label" for="other">Other</label>
+                        </div>
+                        <span></span>
+                    </div>
+                </div>
+                <div class="price-range p-2">
+                    <div class="heading d-flex justify-content-between align-items-center">
+                        <h5 class="text-uppercase">By Price Range</h5>
+                    </div>
+                    <div class="mt-2">
+                        <div class="d-flex justify-content-between">
+                            <label for="customRange1" class="form-label "><span>0</span></label>
+                            <label for="customRange1" class="form-label "><span>100</span></label>
+                        </div>
+                        <input type="range" class="form-range" id="customRange1" min="0" max="5">
+                    </div>
+                </div>
+                <div class="rate p-2 mb-2" >
+                    <div class="heading d-flex justify-content-between align-items-center">
+                        <h5 class="text-uppercase">By Rate</h5>
+                    </div>
+                    <!--Rating-->
+                    <form>
+                        <input id="input-21b" value="4" type="text" class="rating" data-theme="krajee-fas" data-min=0 data-max=5 data-step=0.2 data-size="sm"
+                               required title="">
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </form>
+            <!--Products-->
+            <div class="col-xl-10 col-md-9 col-sm-12">
+                <div class="h2 mx-3">Today's Offer</div>
+                <div class="row g-2 mx-3" id="stylistList">
+
+                    <div class="col-md-3" th:each="stylist:${stylistList}">
+                        <div class="product">
+                            <!-- <span class="off bg-warning">Sponsor</span> -->
+                            <!-- <span class="off bg-success">Best</span> -->
+                            <div class="cart-button mt-3 px-2 d-flex justify-content-end align-items-center">
+                                <span class="product_fav "><i class="bi bi-heart"></i></span>
+                            </div>
+                            <div class="text-center">
+                                <a th:href="'/user/store?stylist='+${stylist.getSid()}">
+                                    <img th:src="${stylist.getPhoto()}" width="200" height="200">
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center pt-1">
+                                <div class="about text-start">
+                                    <h5 th:text="${stylist.getName()}"></h5>
+                                </div>
+                                <!--Rating-->
+                                <!--span class="about-rating bg-primary" th:text="${#aggregates.sum(stylist.getFeedbacks.![rate]) / #lists.size(stylist.getFeedbacks)}">4.5</span-->
+                                <span class="about-rating bg-primary" th:text="${stylist.getRate()}">4.5</span>
+                            </div>
+                        </div>
+                    </div>
+
+<!--                    <div class="col-md-3">-->
+<!--                        <div class="product">-->
+<!--                            &lt;!&ndash; <span class="off bg-warning">Sponsor</span> &ndash;&gt;-->
+<!--                            &lt;!&ndash; <span class="off bg-success">Best</span> &ndash;&gt;-->
+<!--                            <div class="cart-button mt-3 px-2 d-flex justify-content-end align-items-center">-->
+<!--                                <span class="product_fav "><i class="bi bi-heart"></i></span>-->
+<!--                            </div>-->
+<!--                            <div class="text-center">-->
+<!--                                <a href="/user/store">-->
+<!--                                    <img src="../img/barber8.jpg" width="200" height="200">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="about text-start">-->
+<!--                                    <h5>Zoio Alma</h5>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;Rating&ndash;&gt;-->
+<!--                                <span class="about-rating bg-primary">4</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-3">-->
+<!--                        <div class="product">-->
+<!--                            &lt;!&ndash; <span class="off bg-warning">Sponsor</span> &ndash;&gt;-->
+<!--                            &lt;!&ndash; <span class="off bg-success">Best</span> &ndash;&gt;-->
+<!--                            <div class="cart-button mt-3 px-2 d-flex justify-content-end align-items-center">-->
+<!--                                <span class="product_fav "><i class="bi bi-heart"></i></span>-->
+<!--                            </div>-->
+<!--                            <div class="text-center">-->
+<!--                                <a href="/user/store">-->
+<!--                                    <img src="../img/barber7.jpg" width="200" height="200">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="about text-start">-->
+<!--                                    <h5>Zoio Alma</h5>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;Rating&ndash;&gt;-->
+<!--                                <span class="about-rating bg-primary">4</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                    <div class="col-md-3">-->
+<!--                        <div class="product">-->
+<!--                            &lt;!&ndash; <span class="off bg-warning">Sponsor</span> &ndash;&gt;-->
+<!--                            &lt;!&ndash; <span class="off bg-success">Best</span> &ndash;&gt;-->
+<!--                            <div class="cart-button mt-3 px-2 d-flex justify-content-end align-items-center">-->
+<!--                                <span class="product_fav "><i class="bi bi-heart"></i></span>-->
+<!--                            </div>-->
+<!--                            <div class="text-center">-->
+<!--                                <a href="/user/store">-->
+<!--                                    <img src="../img/barber6.jpg" width="200" height="200">-->
+<!--                                </a>-->
+<!--                            </div>-->
+<!--                            <div class="d-flex justify-content-between align-items-center">-->
+<!--                                <div class="about text-start">-->
+<!--                                    <h5>Zoio Alma</h5>-->
+<!--                                </div>-->
+<!--                                &lt;!&ndash;Rating&ndash;&gt;-->
+<!--                                <span class="about-rating bg-primary">4</span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--CONTENT END-->
+
+</main>
+
+<div th:replace="fragments/footer :: footer"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="../js/star-rating.js" type="text/javascript"></script>
+<script src="../js/theme.min.js" type="text/javascript"></script>
+<script src="../js/silder.js"></script>
+<script src="../js/sidebars.js"></script>
+
+<script>
+    //easy-sidebar-toggle-right
+    $('.easy-sidebar-toggle').click(function (e) {
+        e.preventDefault();
+        //$('body').toggleClass('toggled-right');
+        $('body').toggleClass('toggled');
+        //$('.navbar.easy-sidebar-right').removeClass('toggled-right');
+        $('.navbar.easy-sidebar').removeClass('toggled');
+    });
+
+    $('[name=city]').click(function() {
+        getStylistList()
+    });
+
+    $('[name=gender]').click(function() {
+        getStylistList()
+    });
+
+    function getStylistList() {
+        $.ajax({
+            url:"../api/ajax/getStylistListByFilter",
+            data: "city=&gender=&"+$('#filter').serialize(),
+            type: "POST",
+            dataType: "text",
+            success: function(html) {
+                $('#stylistList').empty();
+                $("#stylistList").append(html)
+            }
+        })
+    }
+</script>
+</body>
+
+</html>
